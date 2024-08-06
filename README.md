@@ -33,12 +33,12 @@ El programa sorter se utiliza para ordenar el archivo binario generado utilizand
 ## Detalles Técnicos
 
 
-# generator.cpp
+### generator.cpp
 
 - El programa generator.cpp genera un archivo binario con números aleatorios. El tamaño del archivo puede ser pequeño (512 MB), mediano (1 GB) o grande (2 GB).
 sorter.cpp
 
-# sorter.cpp
+### sorter.cpp
 
 - El programa sorter.cpp implementa un algoritmo de ordenamiento externo con paginación para ordenar el archivo binario generado. Utiliza una estructura de PaginatedArray que simula un sistema de memoria virtual con marcos de página. Los algoritmos de ordenamiento disponibles son QuickSort, InsertionSort y BubbleSort.
   
