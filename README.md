@@ -1,6 +1,6 @@
 # Paginación y Ordenamiento Externo
 
-Este proyecto incluye dos programas principales: `generator.cpp` y `sorter.cpp`. El propósito es generar un archivo binario grande con números aleatorios y luego ordenar esos números utilizando un algoritmo de ordenamiento externo con paginación.
+Este proyecto incluye dos programas principales: `Generator.cpp` y `sorter.cpp`. El propósito es generar un archivo binario grande con números aleatorios y luego ordenar esos números utilizando un algoritmo de ordenamiento externo con paginación.
 
 ## Requisitos
 
@@ -11,15 +11,17 @@ Este proyecto incluye dos programas principales: `generator.cpp` y `sorter.cpp`.
 
 Para compilar ambos programas, utiliza los siguientes comandos:
 
-g++ -o generator generator.cpp
+g++ -o generator Generator.cpp
 g++ -o sorter sorter.cpp
 
 ## Generación del Archivo
 
+
 El programa generator se utiliza para crear un archivo binario de tamaño especificado con números aleatorios.
 
 
-./generator --size <SIZE> --output <OUTPUT FILE PATH>
+```sh
+./generator --size <SIZE> --output <OUTPUT FILE PATH> 
 
 ## Ordenamiento del Archivo
 
@@ -28,10 +30,13 @@ El programa sorter se utiliza para ordenar el archivo binario generado utilizand
 ./sorter -input <INPUT FILE PATH> -output <OUTPUT FILE PATH> -alg <ALGORITHM>
 
 ## Detalles Técnicos
-generator.cpp
+
+# generator.cpp
 
 - El programa generator.cpp genera un archivo binario con números aleatorios. El tamaño del archivo puede ser pequeño (512 MB), mediano (1 GB) o grande (2 GB).
 sorter.cpp
+
+# sorter.cpp
 
 - El programa sorter.cpp implementa un algoritmo de ordenamiento externo con paginación para ordenar el archivo binario generado. Utiliza una estructura de PaginatedArray que simula un sistema de memoria virtual con marcos de página. Los algoritmos de ordenamiento disponibles son QuickSort, InsertionSort y BubbleSort.
 
