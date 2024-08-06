@@ -11,8 +11,8 @@
 # =============================================================================
 
 # =============================================================================
-# Project: extraclase1_2_0
-# Configurations: Debug
+# Project: MyProject
+# Configurations: Release
 # =============================================================================
 
 #############################################
@@ -24,7 +24,7 @@ ninja_required_version = 1.5
 #############################################
 # Set configuration variable for custom commands.
 
-CONFIGURATION = Debug
+CONFIGURATION = Release
 # =============================================================================
 # Include auxiliary files.
 
@@ -39,7 +39,7 @@ include CMakeFiles/rules.ninja
 #############################################
 # Logical path to working directory; prefix for absolute paths.
 
-cmake_ninja_workdir = /home/josepa/CLionProjects/extraclase1_2.5/cmake-build-debug/
+cmake_ninja_workdir = /home/josepa/CLionProjects/extraclase1_2.5/cmake-build-release/
 # =============================================================================
 # Object build statements for EXECUTABLE target generator
 
@@ -49,21 +49,9 @@ cmake_ninja_workdir = /home/josepa/CLionProjects/extraclase1_2.5/cmake-build-deb
 
 build cmake_object_order_depends_target_generator: phony || CMakeFiles/generator.dir
 
-build CMakeFiles/generator.dir/Generator.cpp.o: CXX_COMPILER__generator_unscanned_Debug /home/josepa/CLionProjects/extraclase1_2.5/Generator.cpp || cmake_object_order_depends_target_generator
+build CMakeFiles/generator.dir/Generator.cpp.o: CXX_COMPILER__generator_unscanned_Release /home/josepa/CLionProjects/extraclase1_2.5/Generator.cpp || cmake_object_order_depends_target_generator
   DEP_FILE = CMakeFiles/generator.dir/Generator.cpp.o.d
-  FLAGS = -g -fdiagnostics-color=always
-  OBJECT_DIR = CMakeFiles/generator.dir
-  OBJECT_FILE_DIR = CMakeFiles/generator.dir
-
-build CMakeFiles/generator.dir/PagedArray.cpp.o: CXX_COMPILER__generator_unscanned_Debug /home/josepa/CLionProjects/extraclase1_2.5/PagedArray.cpp || cmake_object_order_depends_target_generator
-  DEP_FILE = CMakeFiles/generator.dir/PagedArray.cpp.o.d
-  FLAGS = -g -fdiagnostics-color=always
-  OBJECT_DIR = CMakeFiles/generator.dir
-  OBJECT_FILE_DIR = CMakeFiles/generator.dir
-
-build CMakeFiles/generator.dir/sorter.cpp.o: CXX_COMPILER__generator_unscanned_Debug /home/josepa/CLionProjects/extraclase1_2.5/sorter.cpp || cmake_object_order_depends_target_generator
-  DEP_FILE = CMakeFiles/generator.dir/sorter.cpp.o.d
-  FLAGS = -g -fdiagnostics-color=always
+  FLAGS = -O3 -DNDEBUG -std=gnu++17 -fdiagnostics-color=always
   OBJECT_DIR = CMakeFiles/generator.dir
   OBJECT_FILE_DIR = CMakeFiles/generator.dir
 
@@ -75,8 +63,8 @@ build CMakeFiles/generator.dir/sorter.cpp.o: CXX_COMPILER__generator_unscanned_D
 #############################################
 # Link the executable generator
 
-build generator: CXX_EXECUTABLE_LINKER__generator_Debug CMakeFiles/generator.dir/Generator.cpp.o CMakeFiles/generator.dir/PagedArray.cpp.o CMakeFiles/generator.dir/sorter.cpp.o
-  FLAGS = -g
+build generator: CXX_EXECUTABLE_LINKER__generator_Release CMakeFiles/generator.dir/Generator.cpp.o
+  FLAGS = -O3 -DNDEBUG
   OBJECT_DIR = CMakeFiles/generator.dir
   POST_BUILD = :
   PRE_LINK = :
@@ -92,15 +80,9 @@ build generator: CXX_EXECUTABLE_LINKER__generator_Debug CMakeFiles/generator.dir
 
 build cmake_object_order_depends_target_sorter: phony || CMakeFiles/sorter.dir
 
-build CMakeFiles/sorter.dir/sorter.cpp.o: CXX_COMPILER__sorter_unscanned_Debug /home/josepa/CLionProjects/extraclase1_2.5/sorter.cpp || cmake_object_order_depends_target_sorter
+build CMakeFiles/sorter.dir/sorter.cpp.o: CXX_COMPILER__sorter_unscanned_Release /home/josepa/CLionProjects/extraclase1_2.5/sorter.cpp || cmake_object_order_depends_target_sorter
   DEP_FILE = CMakeFiles/sorter.dir/sorter.cpp.o.d
-  FLAGS = -g -fdiagnostics-color=always
-  OBJECT_DIR = CMakeFiles/sorter.dir
-  OBJECT_FILE_DIR = CMakeFiles/sorter.dir
-
-build CMakeFiles/sorter.dir/PagedArray.cpp.o: CXX_COMPILER__sorter_unscanned_Debug /home/josepa/CLionProjects/extraclase1_2.5/PagedArray.cpp || cmake_object_order_depends_target_sorter
-  DEP_FILE = CMakeFiles/sorter.dir/PagedArray.cpp.o.d
-  FLAGS = -g -fdiagnostics-color=always
+  FLAGS = -O3 -DNDEBUG -std=gnu++17 -fdiagnostics-color=always
   OBJECT_DIR = CMakeFiles/sorter.dir
   OBJECT_FILE_DIR = CMakeFiles/sorter.dir
 
@@ -112,8 +94,8 @@ build CMakeFiles/sorter.dir/PagedArray.cpp.o: CXX_COMPILER__sorter_unscanned_Deb
 #############################################
 # Link the executable sorter
 
-build sorter: CXX_EXECUTABLE_LINKER__sorter_Debug CMakeFiles/sorter.dir/sorter.cpp.o CMakeFiles/sorter.dir/PagedArray.cpp.o
-  FLAGS = -g
+build sorter: CXX_EXECUTABLE_LINKER__sorter_Release CMakeFiles/sorter.dir/sorter.cpp.o
+  FLAGS = -O3 -DNDEBUG
   OBJECT_DIR = CMakeFiles/sorter.dir
   POST_BUILD = :
   PRE_LINK = :
@@ -125,7 +107,7 @@ build sorter: CXX_EXECUTABLE_LINKER__sorter_Debug CMakeFiles/sorter.dir/sorter.c
 # Utility command for edit_cache
 
 build CMakeFiles/edit_cache.util: CUSTOM_COMMAND
-  COMMAND = cd /home/josepa/CLionProjects/extraclase1_2.5/cmake-build-debug && /snap/clion/284/bin/cmake/linux/x64/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+  COMMAND = cd /home/josepa/CLionProjects/extraclase1_2.5/cmake-build-release && /snap/clion/284/bin/cmake/linux/x64/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
   DESC = No interactive CMake dialog available...
   restat = 1
 
@@ -136,7 +118,7 @@ build edit_cache: phony CMakeFiles/edit_cache.util
 # Utility command for rebuild_cache
 
 build CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
-  COMMAND = cd /home/josepa/CLionProjects/extraclase1_2.5/cmake-build-debug && /snap/clion/284/bin/cmake/linux/x64/bin/cmake --regenerate-during-build -S/home/josepa/CLionProjects/extraclase1_2.5 -B/home/josepa/CLionProjects/extraclase1_2.5/cmake-build-debug
+  COMMAND = cd /home/josepa/CLionProjects/extraclase1_2.5/cmake-build-release && /snap/clion/284/bin/cmake/linux/x64/bin/cmake --regenerate-during-build -S/home/josepa/CLionProjects/extraclase1_2.5 -B/home/josepa/CLionProjects/extraclase1_2.5/cmake-build-release
   DESC = Running CMake to regenerate build system...
   pool = console
   restat = 1
@@ -152,7 +134,7 @@ build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 # =============================================================================
 
 #############################################
-# Folder: /home/josepa/CLionProjects/extraclase1_2.5/cmake-build-debug
+# Folder: /home/josepa/CLionProjects/extraclase1_2.5/cmake-build-release
 
 build all: phony generator sorter
 

@@ -2,7 +2,7 @@
 #include <fstream>
 #include <random>
 #include <cstring>
-
+//:)
 void generateRandomFile(const std::string& filePath, size_t sizeInBytes);
 
 int main(int argc, char* argv[]) {

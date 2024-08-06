@@ -43,7 +43,7 @@
 				}
 			],
 			"type" : "STRING",
-			"value" : "Debug"
+			"value" : "Release"
 		},
 		{
 			"name" : "CMAKE_CACHEFILE_DIR",
@@ -55,7 +55,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/home/josepa/CLionProjects/extraclase1_2.5/cmake-build-debug"
+			"value" : "/home/josepa/CLionProjects/extraclase1_2.5/cmake-build-release"
 		},
 		{
 			"name" : "CMAKE_CACHE_MAJOR_VERSION",
@@ -543,7 +543,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/home/josepa/CLionProjects/extraclase1_2.5/cmake-build-debug/CMakeFiles/pkgRedirects"
+			"value" : "/home/josepa/CLionProjects/extraclase1_2.5/cmake-build-release/CMakeFiles/pkgRedirects"
 		},
 		{
 			"name" : "CMAKE_GENERATOR",
@@ -843,7 +843,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "extraclase1_2_0"
+			"value" : "MyProject"
 		},
 		{
 			"name" : "CMAKE_RANLIB",
@@ -1142,6 +1142,42 @@
 			"value" : "FALSE"
 		},
 		{
+			"name" : "MyProject_BINARY_DIR",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Value Computed by CMake"
+				}
+			],
+			"type" : "STATIC",
+			"value" : "/home/josepa/CLionProjects/extraclase1_2.5/cmake-build-release"
+		},
+		{
+			"name" : "MyProject_IS_TOP_LEVEL",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Value Computed by CMake"
+				}
+			],
+			"type" : "STATIC",
+			"value" : "ON"
+		},
+		{
+			"name" : "MyProject_SOURCE_DIR",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Value Computed by CMake"
+				}
+			],
+			"type" : "STATIC",
+			"value" : "/home/josepa/CLionProjects/extraclase1_2.5"
+		},
+		{
 			"name" : "_CMAKE_LINKER_PUSHPOP_STATE_SUPPORTED",
 			"properties" : 
 			[
@@ -1163,7 +1199,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/home/josepa/CLionProjects/extraclase1_2.5/cmake-build-debug"
+			"value" : "/home/josepa/CLionProjects/extraclase1_2.5/cmake-build-release"
 		},
 		{
 			"name" : "extraclase1_2_0_IS_TOP_LEVEL",
@@ -1179,42 +1215,6 @@
 		},
 		{
 			"name" : "extraclase1_2_0_SOURCE_DIR",
-			"properties" : 
-			[
-				{
-					"name" : "HELPSTRING",
-					"value" : "Value Computed by CMake"
-				}
-			],
-			"type" : "STATIC",
-			"value" : "/home/josepa/CLionProjects/extraclase1_2.5"
-		},
-		{
-			"name" : "extraclase1_2_5_BINARY_DIR",
-			"properties" : 
-			[
-				{
-					"name" : "HELPSTRING",
-					"value" : "Value Computed by CMake"
-				}
-			],
-			"type" : "STATIC",
-			"value" : "/home/josepa/CLionProjects/extraclase1_2.5/cmake-build-debug"
-		},
-		{
-			"name" : "extraclase1_2_5_IS_TOP_LEVEL",
-			"properties" : 
-			[
-				{
-					"name" : "HELPSTRING",
-					"value" : "Value Computed by CMake"
-				}
-			],
-			"type" : "STATIC",
-			"value" : "ON"
-		},
-		{
-			"name" : "extraclase1_2_5_SOURCE_DIR",
 			"properties" : 
 			[
 				{

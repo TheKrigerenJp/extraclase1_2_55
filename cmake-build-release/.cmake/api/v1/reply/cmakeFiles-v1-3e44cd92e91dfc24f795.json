@@ -6,7 +6,7 @@
 		},
 		{
 			"isGenerated" : true,
-			"path" : "cmake-build-debug/CMakeFiles/3.28.1/CMakeSystem.cmake"
+			"path" : "cmake-build-release/CMakeFiles/3.28.1/CMakeSystem.cmake"
 		},
 		{
 			"isCMake" : true,
@@ -20,11 +20,11 @@
 		},
 		{
 			"isGenerated" : true,
-			"path" : "cmake-build-debug/CMakeFiles/3.28.1/CMakeCCompiler.cmake"
+			"path" : "cmake-build-release/CMakeFiles/3.28.1/CMakeCCompiler.cmake"
 		},
 		{
 			"isGenerated" : true,
-			"path" : "cmake-build-debug/CMakeFiles/3.28.1/CMakeCXXCompiler.cmake"
+			"path" : "cmake-build-release/CMakeFiles/3.28.1/CMakeCXXCompiler.cmake"
 		},
 		{
 			"isCMake" : true,
@@ -130,7 +130,7 @@
 	"kind" : "cmakeFiles",
 	"paths" : 
 	{
-		"build" : "/home/josepa/CLionProjects/extraclase1_2.5/cmake-build-debug",
+		"build" : "/home/josepa/CLionProjects/extraclase1_2.5/cmake-build-release",
 		"source" : "/home/josepa/CLionProjects/extraclase1_2.5"
 	},
 	"version" : 
