@@ -1,0 +1,4 @@
+/home/josepa/CLionProjects/extraclase1_2.5/cmake-build-release/CMakeFiles/generator.dir
+/home/josepa/CLionProjects/extraclase1_2.5/cmake-build-release/CMakeFiles/sorter.dir
+/home/josepa/CLionProjects/extraclase1_2.5/cmake-build-release/CMakeFiles/edit_cache.dir
+/home/josepa/CLionProjects/extraclase1_2.5/cmake-build-release/CMakeFiles/rebuild_cache.dir
