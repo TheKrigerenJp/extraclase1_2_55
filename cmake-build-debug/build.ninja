@@ -61,6 +61,12 @@ build CMakeFiles/generator.dir/PagedArray.cpp.o: CXX_COMPILER__generator_unscann
   OBJECT_DIR = CMakeFiles/generator.dir
   OBJECT_FILE_DIR = CMakeFiles/generator.dir
 
+build CMakeFiles/generator.dir/sorter.cpp.o: CXX_COMPILER__generator_unscanned_Debug /home/josepa/CLionProjects/extraclase1_2.5/sorter.cpp || cmake_object_order_depends_target_generator
+  DEP_FILE = CMakeFiles/generator.dir/sorter.cpp.o.d
+  FLAGS = -g -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles/generator.dir
+  OBJECT_FILE_DIR = CMakeFiles/generator.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target generator
@@ -69,7 +75,7 @@ build CMakeFiles/generator.dir/PagedArray.cpp.o: CXX_COMPILER__generator_unscann
 #############################################
 # Link the executable generator
 
-build generator: CXX_EXECUTABLE_LINKER__generator_Debug CMakeFiles/generator.dir/Generator.cpp.o CMakeFiles/generator.dir/PagedArray.cpp.o
+build generator: CXX_EXECUTABLE_LINKER__generator_Debug CMakeFiles/generator.dir/Generator.cpp.o CMakeFiles/generator.dir/PagedArray.cpp.o CMakeFiles/generator.dir/sorter.cpp.o
   FLAGS = -g
   OBJECT_DIR = CMakeFiles/generator.dir
   POST_BUILD = :

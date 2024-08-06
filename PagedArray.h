@@ -1,33 +1,53 @@
 #ifndef PAGEDARRAY_H
 #define PAGEDARRAY_H
 
-#include <vector>
+#include <iostream>
 #include <fstream>
-#include <unordered_map>
-//holaaaa
+#include <vector>
+#include <stdexcept>
+#include <algorithm>
+#include <cstring>
+
+const int ARRAY_SIZE = 8000;
+const int MAX_FRAMES = 4;  // Actualizado a 4
+
 class PagedArray {
 public:
-    PagedArray(const std::string& filePath);
+    class Frames {
+    public:
+        Frames(int numeroPagina);
+        int getNumeroPagina() const;
+        void setNumeroPagina(int numeroPagina);
+        const int* getNumeros() const;
+        int* getNumeros();
+        void setNumeros(const int newNumeros[ARRAY_SIZE]);
+        int& operator[](int index);
+
+    private:
+        int numeroPagina;
+        int numeros[ARRAY_SIZE];
+    };
+
+    PagedArray(const std::string& inputPath, const std::string& outputPath, int totalIntegers);
     ~PagedArray();
-    int operator[](size_t index);
-    void set(size_t index, int value);
-    size_t size() const;
+    int& operator[](int index);
+    void guardarFrameEnArchivo(Frames* frame, int frameIndex);
+    void guardarTodosLosFrames();
+    void cargarFrameDesdeArchivo(int frameIndex);
+    int verificarFrames() const;
+
+    int getPageHits() const;
+    int getPageFaults() const;
 
 private:
-    static const size_t PAGE_SIZE = 1024; // Número de enteros por página
-    static const size_t NUM_PAGES = 4; // Máximo número de páginas en memoria
-    std::vector<int*> pages; // Vector de punteros a páginas en memoria
-    std::vector<size_t> pageIndices; // Índices de las páginas en memoria
-    std::unordered_map<size_t, int*> pageTable; // Tabla de páginas
-    std::string filePath; // Ruta del archivo
-    std::ifstream inputFile; // Archivo de entrada
-    std::ofstream outputFile; // Archivo de salida
-    size_t fileSize; // Tamaño del archivo en enteros
+    void inicializarArchivoDeSalida();
 
-    void loadPage(size_t pageIndex);
-    void unloadPage(size_t pageIndex);
-    size_t getPageIndex(size_t index) const;
-    size_t getOffset(size_t index) const;
+    std::string inputFilePath;
+    std::string outputFilePath;
+    Frames* frames[MAX_FRAMES];
+    int totalIntegers;
+    int pageHits;
+    int pageFaults;
 };
 
 #endif

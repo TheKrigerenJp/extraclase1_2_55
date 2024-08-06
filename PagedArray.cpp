@@ -1,77 +1,183 @@
 #include "PagedArray.h"
-#include <iostream>
-#include <algorithm>
-#include <cstring>
 
-PagedArray::PagedArray(const std::string& filePath) : filePath(filePath), fileSize(0) {
-    inputFile.open(filePath, std::ios::binary | std::ios::ate);
-    if (!inputFile) {
-        throw std::runtime_error("Error al abrir el archivo de entrada.");
-    }
-    fileSize = inputFile.tellg() / sizeof(int);
-    inputFile.seekg(0, std::ios::beg);
-    pages.resize(NUM_PAGES, nullptr);
-    pageIndices.resize(NUM_PAGES, SIZE_MAX);
+PagedArray::Frames::Frames(int numeroPagina) : numeroPagina(numeroPagina) {
+    std::fill(std::begin(numeros), std::end(numeros), 0);
+}
+
+int PagedArray::Frames::getNumeroPagina() const {
+    return numeroPagina;
+}
+
+void PagedArray::Frames::setNumeroPagina(int numeroPagina) {
+    this->numeroPagina = numeroPagina;
+}
+
+const int* PagedArray::Frames::getNumeros() const {
+    return numeros;
+}
+
+int* PagedArray::Frames::getNumeros() {
+    return numeros;
+}
+
+void PagedArray::Frames::setNumeros(const int newNumeros[ARRAY_SIZE]) {
+    std::copy(newNumeros, newNumeros + ARRAY_SIZE, numeros);
+}
+
+int& PagedArray::Frames::operator[](int index) {
+    return numeros[index];
+}
+
+PagedArray::PagedArray(const std::string& inputPath, const std::string& outputPath, int totalIntegers)
+    : inputFilePath(inputPath), outputFilePath(outputPath), totalIntegers(totalIntegers), pageHits(0), pageFaults(0) {
+    std::fill(std::begin(frames), std::end(frames), nullptr);
+    inicializarArchivoDeSalida();
 }
 
 PagedArray::~PagedArray() {
-    for (auto page : pages) {
-        delete[] page;
-    }
-    inputFile.close();
-}
-
-int PagedArray::operator[](size_t index) {
-    size_t pageIndex = getPageIndex(index);
-    size_t offset = getOffset(index);
-
-    if (pageTable.find(pageIndex) == pageTable.end()) {
-        loadPage(pageIndex);
-    }
-
-    return pageTable[pageIndex][offset];
-}
-
-void PagedArray::set(size_t index, int value) {
-    size_t pageIndex = getPageIndex(index);
-    size_t offset = getOffset(index);
-
-    if (pageTable.find(pageIndex) == pageTable.end()) {
-        loadPage(pageIndex);
-    }
-
-    pageTable[pageIndex][offset] = value;
-}
-
-size_t PagedArray::size() const {
-    return fileSize;
-}
-
-void PagedArray::loadPage(size_t pageIndex) {
-    if (pageTable.size() >= NUM_PAGES) {
-        unloadPage(pageIndices[0]);
-    }
-
-    int* page = new int[PAGE_SIZE];
-    inputFile.seekg(pageIndex * PAGE_SIZE * sizeof(int), std::ios::beg);
-    inputFile.read(reinterpret_cast<char*>(page), PAGE_SIZE * sizeof(int));
-
-    pageTable[pageIndex] = page;
-    pageIndices.push_back(pageIndex);
-}
-
-void PagedArray::unloadPage(size_t pageIndex) {
-    if (pageTable.find(pageIndex) != pageTable.end()) {
-        delete[] pageTable[pageIndex];
-        pageTable.erase(pageIndex);
-        pageIndices.erase(std::remove(pageIndices.begin(), pageIndices.end(), pageIndex), pageIndices.end());
+    guardarTodosLosFrames();  // Asegúrate de guardar cualquier frame restante
+    for (int i = 0; i < MAX_FRAMES; ++i) {
+        delete frames[i];
     }
 }
-//holaaaa
-size_t PagedArray::getPageIndex(size_t index) const {
-    return index / PAGE_SIZE;
+
+void PagedArray::inicializarArchivoDeSalida() {
+    std::ofstream outputFile(outputFilePath + "/salida", std::ios::binary | std::ios::out | std::ios::trunc);
+    if (!outputFile) {
+        throw std::runtime_error("Error al abrir el archivo para inicializar");
+    }
+    int zero = 0;
+    for (int i = 0; i < totalIntegers; ++i) {
+        outputFile.write(reinterpret_cast<const char*>(&zero), sizeof(zero));
+    }
+
+    outputFile.close();
 }
 
-size_t PagedArray::getOffset(size_t index) const {
-    return index % PAGE_SIZE;
+int& PagedArray::operator[](int index) {
+    int frameIndex = index / ARRAY_SIZE;
+    int offset = index % ARRAY_SIZE;
+
+    // Verifica si el frame está cargado
+    for (int i = 0; i < MAX_FRAMES; ++i) {
+        if (frames[i] && frames[i]->getNumeroPagina() == frameIndex) {
+            ++pageHits;
+            return frames[i]->getNumeros()[offset];
+        }
+    }
+
+    ++pageFaults;
+    cargarFrameDesdeArchivo(frameIndex);
+
+    for (int i = 0; i < MAX_FRAMES; ++i) {
+        if (frames[i] && frames[i]->getNumeroPagina() == frameIndex) {
+            return frames[i]->getNumeros()[offset];
+        }
+    }
+
+    throw std::runtime_error("Frame no cargado correctamente");
 }
+
+void PagedArray::guardarFrameEnArchivo(Frames* frame, int frameIndex) {
+    std::fstream outputFile(outputFilePath + "/salida", std::ios::binary | std::ios::in | std::ios::out);
+
+    if (!outputFile) {
+        throw std::runtime_error("Error al abrir el archivo para guardar el frame");
+    }
+
+    std::streampos position = frameIndex * ARRAY_SIZE * sizeof(int);
+    outputFile.seekp(position);
+
+    if (!outputFile) {
+        throw std::runtime_error("Error al mover el puntero de escritura en el archivo");
+    }
+
+    outputFile.write(reinterpret_cast<char*>(frame->getNumeros()), ARRAY_SIZE * sizeof(int));
+
+    if (!outputFile) {
+        throw std::runtime_error("Error al escribir en el archivo");
+    }
+
+    outputFile.close();
+}
+
+void PagedArray::guardarTodosLosFrames() {
+    for (int i = 0; i < MAX_FRAMES; ++i) {
+        if (frames[i]) {
+            guardarFrameEnArchivo(frames[i], frames[i]->getNumeroPagina());
+            delete frames[i];
+            frames[i] = nullptr;
+        }
+    }
+}
+
+void PagedArray::cargarFrameDesdeArchivo(int frameIndex) {
+    int freeFrameIndex = -1;
+    for (int i = 0; i < MAX_FRAMES; ++i) {
+        if (!frames[i]) {
+            freeFrameIndex = i;
+            break;
+        }
+    }
+
+    if (freeFrameIndex == -1) {
+        freeFrameIndex = rand() % MAX_FRAMES;
+        guardarFrameEnArchivo(frames[freeFrameIndex], frames[freeFrameIndex]->getNumeroPagina());
+        delete frames[freeFrameIndex];
+    }
+
+    std::ifstream outputFile(outputFilePath + "/salida", std::ios::binary);
+    if (!outputFile) {
+        throw std::runtime_error("Error al abrir el archivo de salida para leer el frame");
+    }
+
+    int* data = new int[ARRAY_SIZE];
+    std::streampos position = frameIndex * ARRAY_SIZE * sizeof(int);
+    outputFile.seekg(position);
+    outputFile.read(reinterpret_cast<char*>(data), ARRAY_SIZE * sizeof(int));
+
+    bool loadFromOutput = false;
+    for (int i = 0; i < ARRAY_SIZE; ++i) {
+        if (data[i] != 0) {
+            loadFromOutput = true;
+            break;
+        }
+    }
+
+    outputFile.close();
+
+    if (!loadFromOutput) {
+        std::ifstream inputFile(inputFilePath, std::ios::binary);
+        if (!inputFile) {
+            throw std::runtime_error("Error al abrir el archivo binario de entrada");
+        }
+
+        inputFile.seekg(position);
+        if (!inputFile.read(reinterpret_cast<char*>(data), ARRAY_SIZE * sizeof(int))) {
+            throw std::runtime_error("Error al leer el archivo binario de entrada");
+        }
+
+        inputFile.close();
+    }
+
+    frames[freeFrameIndex] = new Frames(frameIndex);
+    frames[freeFrameIndex]->setNumeros(data);
+    delete[] data;
+}
+
+int PagedArray::verificarFrames() const {
+    for (int i = 0; i < MAX_FRAMES; ++i) {
+        if (!frames[i]) return i + 1;
+    }
+    return 0;
+}
+
+int PagedArray::getPageHits() const {
+    return pageHits;
+}
+
+int PagedArray::getPageFaults() const {
+    return pageFaults;
+}
+
+
